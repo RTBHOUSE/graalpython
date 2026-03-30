@@ -38,6 +38,13 @@
 # SOFTWARE.
 
 if [ -n "$GITHUB_RUN_ID" ]; then
+    # 1. Reset the default LLVM toolset module
+    dnf module reset -y llvm-toolset
+    
+    # 2. Enable an older, more stable stream (e.g., LLVM 18)
+    dnf module enable -y llvm-toolset:rhel8-llvm-18
+
+    # 3. Install the dependencies as normal
     dnf install -y libffi-devel \
         boost-devel \
         snappy-devel \
